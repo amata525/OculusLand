@@ -33,14 +33,17 @@ public class Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 
 	public void RideRedCup(){
 		playerObj.transform.parent = redCup.transform;
 		playerObj.GetComponent<OVRPlayerController> ().enabled = false;
-		playerObj.transform.localPosition = new Vector3 (-0.7f, 0.6f, 0);
+		playerObj.transform.localPosition = new Vector3 (-1f, 0.8f, 0);
+		
+		float d = cups [0].transform.eulerAngles.y;
+		playerObj.transform.eulerAngles = new Vector3 (0, 90.0f + d, 0);
 
 		for (int i = 0; i < 4; i++) {
 			cupScripts [i].operating = true;
@@ -51,7 +54,10 @@ public class Controller : MonoBehaviour {
 	public void RideBlueCup(){
 		playerObj.transform.parent = blueCup.transform;
 		playerObj.GetComponent<OVRPlayerController> ().enabled = false;
-		playerObj.transform.localPosition = new Vector3 (-0.7f, 0.6f, 0);
+		playerObj.transform.localPosition = new Vector3 (-1f, 0.8f, 0);
+
+		float d = cups [1].transform.eulerAngles.y;
+		playerObj.transform.eulerAngles = new Vector3 (0, 90.0f + d, 0);
 
 
 		for (int i = 0; i < 4; i++) {
@@ -64,8 +70,8 @@ public class Controller : MonoBehaviour {
 		playerObj.transform.parent = null;
 		playerObj.GetComponent<OVRPlayerController> ().enabled = true;
 		playerObj.transform.position = new Vector3 (0, 1.0f, -12.0f);
-
-
+		playerObj.transform.eulerAngles = new Vector3 (0, 0, 0);
+		
 		for (int i = 0; i < 4; i++) {
 			cupScripts [i].operating = false;
 		}
