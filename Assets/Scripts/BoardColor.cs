@@ -14,5 +14,6 @@ public class BoardColor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		renderer.material = materials [index];
+		index = 0;
 	}
 }

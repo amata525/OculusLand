@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\BoardColor.cs" />
      <Compile Include="Assets\Scripts\Controller.cs" />
      <Compile Include="Assets\Scripts\Cup.cs" />
+     <Compile Include="Assets\Scripts\Disk.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <None Include="Assets\Plugins\donotdelete.txt" />
      <None Include="Assets\Plugins\x86_64\donotdelete.txt" />

@@ -6,7 +6,6 @@ public class Cup : MonoBehaviour {
 	public bool operating = false;
 	public float mSpeedAngle = 0.0f;  // 回転速度
 
-
 	// Use this for initialization
 	void Start () {
 	

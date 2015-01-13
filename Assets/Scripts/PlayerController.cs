@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour {
 			if (Physics.Raycast (this.transform.position, this.transform.forward, out hit, 2)) {
 				if (hit.collider.tag == "GameController") {
 					if (hit.collider.gameObject.name == "RedBoard") {
-						redBoardColor.index = 1;
+						hit.collider.gameObject.GetComponent<BoardColor>().index = 1;
 
 						if (Input.GetKeyDown (KeyCode.E)) {
 							master.RideRedCup ();
@@ -48,24 +48,33 @@ public class PlayerController : MonoBehaviour {
 						}
 
 					} else if (hit.collider.gameObject.name == "BlueBoard") {
-						blueBoardColor.index = 1;
+						hit.collider.gameObject.GetComponent<BoardColor>().index = 1;
 
 						if (Input.GetKeyDown (KeyCode.E)) {
 							master.RideBlueCup ();
 							riding = true;
 							walking = false;
 						}
+					} else if (hit.collider.gameObject.name == "DiskRedBoard") {
+						hit.collider.gameObject.GetComponent<BoardColor>().index = 1;
+						
+						if (Input.GetKeyDown (KeyCode.E)) {
+							master.CrucifyRedDisk();
+							riding = true;
+							walking = false;
+						}
+					} else if (hit.collider.gameObject.name == "DiskBlueBoard") {
+						hit.collider.gameObject.GetComponent<BoardColor>().index = 1;
+
+						if (Input.GetKeyDown (KeyCode.E)) {
+							master.CrucifyBlueDisk();
+							riding = true;
+							walking = false;
+						}
 					}
-
-				} else {
-					redBoardColor.index = 0;
-					blueBoardColor.index = 0;
 				}
-
-			} else {
-				redBoardColor.index = 0;
-				blueBoardColor.index = 0;
 			}
+
 		// カップに乗っているならば
 		} else if (riding) {
 			if (Input.GetKeyDown (KeyCode.E)) {

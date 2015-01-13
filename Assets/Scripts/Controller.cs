@@ -15,6 +15,12 @@ public class Controller : MonoBehaviour {
 	Cup[] cupScripts = new Cup[4];
 	AroundRotation coffeeCupScript;
 
+	GameObject redDisk;
+	GameObject blueDisk;
+
+	GameObject[] disks = new GameObject[4];
+	Disk[] diskScripts = new Disk[4];
+
 	// Use this for initialization
 	void Start () {
 		playerObj = GameObject.Find ("Player");
@@ -29,6 +35,14 @@ public class Controller : MonoBehaviour {
 		}
 		coffeeCupObj = GameObject.Find ("CoffeeCup");
 		coffeeCupScript = coffeeCupObj.GetComponent<AroundRotation> ();
+
+		redDisk = GameObject.Find("SpiningDisk1");
+		blueDisk = GameObject.Find("SpiningDisk0");
+
+		for (int i = 0; i<4; i++) {
+			disks[i] = GameObject.Find("SpiningDisk" + i);
+			diskScripts[i] = disks[i].GetComponent<Disk>(); //　ここ子オブジェクトに変える
+		}
 	}
 	
 	// Update is called once per frame
@@ -64,6 +78,26 @@ public class Controller : MonoBehaviour {
 			cupScripts [i].operating = true;
 		}
 		coffeeCupScript.operating = true;
+	}
+
+	public void CrucifyRedDisk(){
+		playerObj.transform.parent = redDisk.transform.FindChild ("Cylinder").transform;
+		playerObj.GetComponent<OVRPlayerController> ().enabled = false;
+		playerObj.transform.localPosition = new Vector3 (0, 0, 0);
+
+		for (int i = 0; i < 4; i++) {
+			diskScripts[i].operating = true;
+		}
+	}
+
+	public void CrucifyBlueDisk(){
+		playerObj.transform.parent = blueDisk.transform.FindChild ("Cylinder").transform;
+		playerObj.GetComponent<OVRPlayerController> ().enabled = false;
+		playerObj.transform.localPosition = new Vector3 (0, 0, 0);
+		
+		for (int i = 0; i < 4; i++) {
+			diskScripts[i].operating = true;
+		}	
 	}
 
 	public void GetOffCup(){
