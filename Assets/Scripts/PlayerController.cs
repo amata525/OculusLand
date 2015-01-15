@@ -7,12 +7,6 @@ public class PlayerController : MonoBehaviour {
 
 	Controller master;
 
-	GameObject redBoard;
-	GameObject blueBoard;
-
-	BoardColor redBoardColor;
-	BoardColor blueBoardColor;
-
 	bool walking = true;
 	bool riding = false;
 
@@ -21,12 +15,6 @@ public class PlayerController : MonoBehaviour {
 		masterObj = GameObject.Find ("GameMaster");
 
 		master = masterObj.GetComponent<Controller> ();
-
-		redBoard = GameObject.Find("RedBoard");
-		blueBoard = GameObject.Find("BlueBoard");
-
-		redBoardColor = redBoard.GetComponent<BoardColor> ();
-		blueBoardColor = blueBoard.GetComponent<BoardColor> ();
 	}
 
 	// Update is called once per frame
@@ -71,11 +59,20 @@ public class PlayerController : MonoBehaviour {
 							riding = true;
 							walking = false;
 						}
+					} else if (hit.collider.gameObject.name == "GreenBoard") {
+						hit.collider.gameObject.GetComponent<BoardColor>().index = 1;
+						
+						if (Input.GetKeyDown (KeyCode.E)) {
+							master.RideBuranko();
+							riding = true;
+							walking = false;
+						}
 					}
+
 				}
 			}
 
-		// カップに乗っているならば
+		// アトラクションに乗っているならば
 		} else if (riding) {
 			if (Input.GetKeyDown (KeyCode.E)) {
 				master.GetOffCup ();

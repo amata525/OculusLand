@@ -21,11 +21,16 @@ public class Controller : MonoBehaviour {
 	GameObject[] disks = new GameObject[4];
 	Disk[] diskScripts = new Disk[4];
 
+	GameObject buranko;
+	Buranko burankoScript;
+
 	// Use this for initialization
 	void Start () {
+		// プレイヤーオブジェクト
 		playerObj = GameObject.Find ("Player");
 		//playerCamera = playerObj.transform.FindChild ("PlayerCamera").gameObject;
 
+		// コーヒーカップオブジェクト
 		redCup = GameObject.Find ("Cup0");
 		blueCup = GameObject.Find ("Cup1");
 
@@ -35,14 +40,19 @@ public class Controller : MonoBehaviour {
 		}
 		coffeeCupObj = GameObject.Find ("CoffeeCup");
 		coffeeCupScript = coffeeCupObj.GetComponent<AroundRotation> ();
-
+		
+		// 回転盤オブジェクト
 		redDisk = GameObject.Find("SpiningDisk1");
 		blueDisk = GameObject.Find("SpiningDisk0");
 
 		for (int i = 0; i<4; i++) {
 			disks[i] = GameObject.Find("SpiningDisk" + i);
-			diskScripts[i] = disks[i].GetComponent<Disk>(); //　ここ子オブジェクトに変える
+			diskScripts[i] = disks[i].transform.FindChild("Cylinder").GetComponent<Disk>();
 		}
+
+		// ブランコオブジェクト
+		buranko = GameObject.Find ("Buranko0");
+		burankoScript = buranko.transform.FindChild ("Cube").GetComponent<Buranko> ();
 	}
 	
 	// Update is called once per frame
@@ -83,7 +93,9 @@ public class Controller : MonoBehaviour {
 	public void CrucifyRedDisk(){
 		playerObj.transform.parent = redDisk.transform.FindChild ("Cylinder").transform;
 		playerObj.GetComponent<OVRPlayerController> ().enabled = false;
-		playerObj.transform.localPosition = new Vector3 (0, 0, 0);
+		playerObj.transform.localPosition = new Vector3 (0, 2, 0);
+
+		playerObj.transform.eulerAngles = new Vector3 (0, 180, 0);
 
 		for (int i = 0; i < 4; i++) {
 			diskScripts[i].operating = true;
@@ -93,23 +105,42 @@ public class Controller : MonoBehaviour {
 	public void CrucifyBlueDisk(){
 		playerObj.transform.parent = blueDisk.transform.FindChild ("Cylinder").transform;
 		playerObj.GetComponent<OVRPlayerController> ().enabled = false;
-		playerObj.transform.localPosition = new Vector3 (0, 0, 0);
-		
+		playerObj.transform.localPosition = new Vector3 (0, 2, 0);
+
+		playerObj.transform.eulerAngles = new Vector3 (0, 180, 0);
+
 		for (int i = 0; i < 4; i++) {
 			diskScripts[i].operating = true;
 		}	
 	}
 
+	public void RideBuranko(){
+		playerObj.transform.parent = buranko.transform.FindChild ("Cube").transform;
+		playerObj.GetComponent<OVRPlayerController> ().enabled = false;
+		playerObj.transform.localPosition = new Vector3 (0, 0, 0);
+
+		playerObj.transform.eulerAngles = new Vector3 (0, 90, 0);
+
+		burankoScript.operating = true;
+	}
+
 	public void GetOffCup(){
 		playerObj.transform.parent = null;
 		playerObj.GetComponent<OVRPlayerController> ().enabled = true;
-		playerObj.transform.position = new Vector3 (0, 1.0f, -12.0f);
+		playerObj.transform.position = new Vector3 (0, 1.0f, -15.0f);
 		playerObj.transform.eulerAngles = new Vector3 (0, 0, 0);
 		
 		for (int i = 0; i < 4; i++) {
 			cupScripts [i].operating = false;
 		}
 		coffeeCupScript.operating = false;
+
+		for (int i = 0; i < 4; i++) {
+			diskScripts[i].operating = false;
+		}	
+
+		burankoScript.operating = false;
+
 	}
 
 }

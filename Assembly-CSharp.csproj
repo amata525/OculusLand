@@ -63,6 +63,7 @@
      <Compile Include="Assets\OVR\Scripts\Util\OVRVisionGuide.cs" />
      <Compile Include="Assets\Scripts\AroundRotation.cs" />
      <Compile Include="Assets\Scripts\BoardColor.cs" />
+     <Compile Include="Assets\Scripts\Buranko.cs" />
      <Compile Include="Assets\Scripts\Controller.cs" />
      <Compile Include="Assets\Scripts\Cup.cs" />
      <Compile Include="Assets\Scripts\Disk.cs" />
